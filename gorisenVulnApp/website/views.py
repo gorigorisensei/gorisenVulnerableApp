@@ -3,9 +3,8 @@ from flask_login import login_required, current_user
 from .models import Note
 from . import db
 import json
-
+from sqlalchemy import text
 views = Blueprint('views', __name__)
-
 
 @views.route('/', methods=['GET', 'POST'])
 @login_required
@@ -19,9 +18,24 @@ def home():
             new_note = Note(data=note, user_id=current_user.id)  #providing the schema for the note
             db.session.add(new_note) #adding the note to the database
             db.session.commit()
+
             flash('Note added!', category='success')
 
-    return render_template("home.html", user=current_user)
+
+    query = text(f"SELECT * FROM note where user_id = {current_user.id}")
+
+    results = db.session.execute(query).all()
+    rows = []
+    if results:
+        for note in results:
+            rows.append("""<li class="list-group-item"> %s
+                <button type="button" class="close" onClick="deleteNote(%s)">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </li>""" % (note[1], note.id))
+
+
+    return render_template("home.html", user=current_user, rows=rows)
 
 
 @views.route('/delete-note', methods=['POST'])

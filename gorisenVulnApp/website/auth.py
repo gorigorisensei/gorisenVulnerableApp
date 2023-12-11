@@ -4,7 +4,6 @@ from . import db   ##means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
 import os
 from flask import send_file
-from werkzeug.utils import secure_filename
 from sqlalchemy import text
 
 auth = Blueprint('auth', __name__)
