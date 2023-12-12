@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block title %}LFI challenge{% endblock %} {% block content
+%}
+
+<br>
+<br>
+<br>
+<br>
+<h1 align="center">Ping!</h1>
+
+<br>
+<br>
+
+<form method="POST">
+  <div class="form-group">
+       <label for="hostname">HOSTNAME / IP </label>
+       <input class="form-control" id="hostname" name="hostname" placeholder="hostname"/>
+
+  </div>
+
+
+  <br>
+  <button type=submit" class="btn btn-primary">Execute</button>
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
+
+
+ </form>
+
+<div style="text-align: center;">
+          <img src="/static/ping.gif" width="350" height="250" style="border-radius: 30%;" >
+        </div>
+
+{% endblock %}

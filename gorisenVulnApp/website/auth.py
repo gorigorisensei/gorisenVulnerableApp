@@ -1,3 +1,5 @@
+import subprocess
+
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import User
 from . import db   ##means from __init__.py import db
@@ -18,7 +20,14 @@ def get_asset():
         return render_template("find_secret.html",user=current_user)
     return send_file(os.path.join(asset_folder, asset_name))
 
-
+@auth.route("/ping", methods=['GET', 'POST'])
+def page():
+    if request.method == 'POST':
+        hostname = request.form.get('hostname')
+        cmd = 'ping ' + hostname
+        return subprocess.check_output(cmd, shell=True)
+    else:
+        return render_template("ping.html",user=current_user)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():

