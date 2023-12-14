@@ -7,10 +7,14 @@ from flask_login import login_user, login_required, logout_user, current_user
 import os
 from flask import send_file
 from sqlalchemy import text
+import glob, random
 
 auth = Blueprint('auth', __name__)
 # LFI vuln code
 asset_folder = "templates"
+
+
+
 @auth.route('/find_secret', methods=['GET', 'POST'])
 def get_asset():
 
@@ -22,12 +26,41 @@ def get_asset():
 
 @auth.route("/ping", methods=['GET', 'POST'])
 def page():
-    if request.method == 'POST':
+
+    if request.method == 'GET':
         hostname = request.form.get('hostname')
         cmd = 'ping ' + hostname
         return subprocess.check_output(cmd, shell=True)
     else:
         return render_template("ping.html",user=current_user)
+
+def chooseRandomImage(directory="website/static"):
+    imgExtension = ["png", "jpeg", "jpg"]  # Image Extensions to be chosen from
+    allImages = list()
+
+    for img in os.listdir(directory): #Lists all files
+        ext = img.split(".")[len(img.split(".")) - 1]
+        if (ext in imgExtension):
+            allImages.append(img)
+    choice = random.randint(0, len(allImages) - 1)
+    chosenImage = allImages[choice] #Do Whatever you want with the image file
+    return chosenImage
+@auth.route("/pickPartner", methods=['GET', 'POST'])
+
+def partner():
+    random_image = chooseRandomImage()
+    print(random_image)
+    if request.method == 'POST':
+        buddy = request.form.get('buddy')
+        return render_template("pickPartner.html",user=current_user, buddy=buddy, random_image=random_image)
+    else:
+        buddy = request.args.get('buddy')
+        return render_template("pickPartner.html",user=current_user, buddy=buddy, random_image=random_image)
+
+
+
+
+
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():

@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block title %}Pick Your Buddy{% endblock %} {% block content
+%}
+
+<br>
+<br>
+<br>
+<br>
+<h1 align="center">Pick your buddy's name below!</h1>
+
+<br>
+<br>
+<form method="POST">
+  <div class="form-group">
+       <label for="buddy">Pick a great name!</label>
+       <input class="form-control" id="buddy" name="buddy" placeholder="Pikachu"/>
+
+  </div>
+
+
+  <br>
+  <button type=submit" class="btn btn-success">I CHOOSE YOU!</button>
+
+      <br>
+
+ </form>
+<br>
+<br>
+ {% if buddy %}
+
+<div style="text-align: center;">
+<h3>Your buddy: {{ buddy |safe }} </h3><br>
+<br>
+
+          <img src="/static/{{ random_image }}" width="550" height="550" style="border-radius: 20%;" >
+        </div>
+
+ {% endif %}
+
+<br>
+<br>
+<div style="text-align: center;">
+    <div class="card border border-success shadow-0 mb-3" >
+        <div class="card-body"><b>Your buddy's image will change if you supply another name.</b></div>
+    </div>
+
+</div>
+
+
+{% endblock %}
