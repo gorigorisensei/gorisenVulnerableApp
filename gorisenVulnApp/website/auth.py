@@ -26,13 +26,12 @@ def get_asset():
 
 @auth.route("/ping", methods=['GET', 'POST'])
 def page():
-
-    if request.method == 'GET':
+    if request.method == 'POST':
         hostname = request.form.get('hostname')
         cmd = 'ping ' + hostname
         return subprocess.check_output(cmd, shell=True)
     else:
-        return render_template("ping.html",user=current_user)
+        return render_template("ping.html", user=current_user)
 
 def chooseRandomImage(directory="website/static"):
     imgExtension = ["png", "jpeg", "jpg"]  # Image Extensions to be chosen from
