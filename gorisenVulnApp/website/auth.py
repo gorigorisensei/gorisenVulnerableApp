@@ -25,8 +25,14 @@ def get_asset():
     try:
         return send_file(os.path.join(asset_folder, asset_name))
     except:
-        return render_template_string("404 page not found: the " + asset_name + " resource does not exist!",
-                                      user=current_user), 404
+        return render_template_string("""
+    <h2 style="background-color:powderblue;">
+    404 page not found: 
+    </h2> 
+  <h3>
+  the 
+   '""" + asset_name + """' resource does not exist! 
+  </h3>""", user=current_user), 404
 
 
 @auth.route("/ping", methods=['GET', 'POST'])
