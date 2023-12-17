@@ -40,6 +40,8 @@ def home():
               </li>""" % (note[1], note.id))
 
 
+
+
     return render_template("home.html", user=current_user, rows=rows, anti_csrf_token=session['anti_csrf_token'])
 
 

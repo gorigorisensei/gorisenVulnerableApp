@@ -1,7 +1,8 @@
 import subprocess
 import uuid
 
-from flask import Blueprint, render_template, request, flash, redirect, url_for, render_template_string, jsonify, session
+from flask import Blueprint, render_template, request, flash, redirect, url_for, render_template_string, jsonify, \
+    session, make_response
 from lxml import etree
 
 from .models import User
@@ -99,8 +100,10 @@ def login():
                 user = User.query.filter_by(email=result.email).first()
 
                 login_user(user, remember=True)
+                response = make_response(redirect(url_for('views.home')))
+                response.set_cookie('cookie', str(uuid.uuid4()))
 
-                return redirect(url_for('views.home'))
+                return response
         else:
             flash('Incorrect password, try again.', category='error')
 
