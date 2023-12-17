@@ -1,6 +1,9 @@
 import subprocess
+import uuid
 
-from flask import Blueprint, render_template, request, flash, redirect, url_for, render_template_string
+from flask import Blueprint, render_template, request, flash, redirect, url_for, render_template_string, jsonify, session
+from lxml import etree
+
 from .models import User
 from . import db   ##means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -8,6 +11,7 @@ import os
 from flask import send_file
 from sqlalchemy import text
 import glob, random
+from .fortunes import fortune_list
 
 auth = Blueprint('auth', __name__)
 # LFI vuln code
@@ -83,11 +87,17 @@ def login():
         query = text("SELECT * FROM user WHERE email = '%s' AND password = '%s' "% (email,password))
         results = db.session.execute(query).all()
         if results:
+
             for result in results:
                 flash('Logged in successfully!', category='success')
+                session["email"] = result.email
+
                 user = User.query.filter_by(password=result.password).first()
 
+
+
                 login_user(user, remember=True)
+
 
                 return redirect(url_for('views.home'))
         else:
@@ -101,8 +111,19 @@ def login():
 def logout():
     # bring the user back to the login page
     logout_user()
+    session["email"] = None
     return redirect(url_for('auth.login'))
 
+@auth.route('/fortune',methods=['GET', 'POST'])
+@login_required
+def fortune():
+    if request.method == 'POST':
+        random_fortune = random.choice(fortune_list)
+
+        fortune = random_fortune
+        return render_template("fortune.html", user=current_user, fortune=fortune)
+
+    return render_template("fortune.html", user=current_user)
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
@@ -130,3 +151,20 @@ def sign_up():
             return redirect(url_for('views.home'))
 
     return render_template("signup.html", user=current_user)
+
+
+@auth.route("/change_email", methods=['POST'])
+@login_required
+def change_email():
+    current_email = current_user.email
+    email = request.form.get('email')
+
+    return f"<h1> Your Email has been changed to {email} from {current_email} ! (This is a simulation) <h1>"
+  # anti_csrf_token = request.form.get("anti_csrf_token")
+  # if session['anti_csrf_token'] != anti_csrf_token:
+  #     print(f"database csrf token was: {session['anti_csrf_token']} "
+  #           f"csrf token submitted by the form was {anti_csrf_token} ")
+  #     return "Error, wrong anti CSRF token", 401
+  # else:
+  #     return "this user has been deleted! (This is a simulation)"
+  # Continue with a valid token

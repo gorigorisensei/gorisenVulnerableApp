@@ -1,0 +1,56 @@
+{% extends "base.html" %} {% block title %}Fortune Cookie{% endblock %} {% block content
+%}
+
+<br>
+<br>
+<br>
+<br>
+<h1 align="center">Fortune Cookie</h1>
+
+<br>
+<br>
+
+<div align="center">
+
+
+    <br>
+
+  <form method="POST">
+
+
+  <br>
+  <button type=submit" class="btn btn-success btn-lg">Show me a Fortune!</button>
+
+      <br>
+
+ </form>
+
+  <br>
+  <br>
+  <br>
+  <h2>Your Fortune:</h2>
+
+    {% if fortune %}
+        <br>
+        <br>
+        <h4> {{ fortune }} </h4>
+        <br>
+        <br>
+        <div style="text-align: center;">
+            <img src="/static/fortunecookieopen.avif" width="450" height="350" style="border-radius: 60%;" >
+        </div>
+
+    {% else %}
+    <div style="text-align: center;">
+        <img src="/static/fortunecookie.jpg" width="450" height="350" style="border-radius: 60%;" >
+    </div>
+
+
+
+    {% endif %}
+
+
+
+  </div>
+
+{% endblock %}

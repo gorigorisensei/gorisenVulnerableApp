@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template, request, flash, jsonify
+import uuid
+
+from flask import Blueprint, render_template, request, flash, jsonify, session
 from flask_login import login_required, current_user
 from .models import Note
 from . import db
@@ -9,6 +11,8 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
+    session['anti_csrf_token'] = str(uuid.uuid4())
+
     if request.method == 'POST':
         note = request.form.get('note')#Gets the note from the HTML
 
@@ -35,7 +39,7 @@ def home():
               </li>""" % (note[1], note.id))
 
 
-    return render_template("home.html", user=current_user, rows=rows)
+    return render_template("home.html", user=current_user, rows=rows, anti_csrf_token=session['anti_csrf_token'])
 
 
 @views.route('/delete-note', methods=['POST'])

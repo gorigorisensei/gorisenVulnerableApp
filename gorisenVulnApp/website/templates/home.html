@@ -12,7 +12,32 @@
   <textarea name="note" id="note" class="form-control"></textarea>
   <br />
   <div align="center">
+
     <button type="submit" class="btn btn-primary">Add Note</button>
   </div>
 </form>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="card">
+  <div class="card-header">
+    Update your Email Address
+  </div>
+  <div class="card-body">
+    <form action="/change_email" method="post">
+  <!-- ... -->
+    <h2>Enter a new email address below:</h2>
+    <input class="form-control" id="email" name="email" placeholder="email"/>
+    <input type="hidden" name="anti_csrf_token" value="{{anti_csrf_token}}">
+    <br>
+    <button type="submit" class="btn btn-danger">Change my email address!</button>
+</form>
+  </div>
+</div>
+
+
 {% endblock %}
