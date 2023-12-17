@@ -15,7 +15,7 @@ DB_NAME = "database.db"
 def create_app():
     app = Flask(__name__)
     # secure the session with key
-    app.config['SECRET_KEY'] = 'fjaiojfijfojrgf903uufafja'
+    app.config['SECRET_KEY'] = 'fjaiojfijfojrgfgsdgsgsgsgsggwggw903uufafja'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
     app.config["SESSION_PERMANENT"] = False

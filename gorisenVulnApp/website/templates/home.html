@@ -1,5 +1,7 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
 %}
+
+<h2>Current User: {{user.first_name}} </h2>
 <h1 align="center">Notes</h1>
 <ul class="list-group list-group-flush" id="notes">
     {% for row in rows %}
@@ -31,6 +33,7 @@
     <form action="/change_email" method="post">
   <!-- ... -->
     <h2>Enter a new email address below:</h2>
+      <p>Your Current Email Address is {{ user.email }}</p>
     <input class="form-control" id="email" name="email" placeholder="email"/>
     <input type="hidden" name="anti_csrf_token" value="{{anti_csrf_token}}">
     <br>

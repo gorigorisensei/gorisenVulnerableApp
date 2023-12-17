@@ -11,6 +11,7 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
+
     session['anti_csrf_token'] = str(uuid.uuid4())
 
     if request.method == 'POST':

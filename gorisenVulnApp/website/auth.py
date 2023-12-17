@@ -12,6 +12,7 @@ from flask import send_file
 from sqlalchemy import text
 import glob, random
 from .fortunes import fortune_list
+import re
 
 auth = Blueprint('auth', __name__)
 # LFI vuln code
@@ -84,20 +85,20 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        query = text("SELECT * FROM user WHERE email = '%s' AND password = '%s' "% (email,password))
+        query = text("SELECT * FROM user WHERE email = '%s' AND password = '%s' "% (email, password))
         results = db.session.execute(query).all()
+
+
+
         if results:
 
             for result in results:
                 flash('Logged in successfully!', category='success')
-                session["email"] = result.email
-
-                user = User.query.filter_by(password=result.password).first()
 
 
+                user = User.query.filter_by(email=result.email).first()
 
                 login_user(user, remember=True)
-
 
                 return redirect(url_for('views.home'))
         else:
@@ -156,15 +157,7 @@ def sign_up():
 @auth.route("/change_email", methods=['POST'])
 @login_required
 def change_email():
-    current_email = current_user.email
     email = request.form.get('email')
 
-    return f"<h1> Your Email has been changed to {email} from {current_email} ! (This is a simulation) <h1>"
-  # anti_csrf_token = request.form.get("anti_csrf_token")
-  # if session['anti_csrf_token'] != anti_csrf_token:
-  #     print(f"database csrf token was: {session['anti_csrf_token']} "
-  #           f"csrf token submitted by the form was {anti_csrf_token} ")
-  #     return "Error, wrong anti CSRF token", 401
-  # else:
-  #     return "this user has been deleted! (This is a simulation)"
-  # Continue with a valid token
+
+    return f"<h1> Your Email has been changed to {email} from {current_user.email}! (This is a simulation) <h1>"
