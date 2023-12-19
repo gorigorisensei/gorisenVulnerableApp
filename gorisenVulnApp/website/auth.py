@@ -164,3 +164,22 @@ def change_email():
 
 
     return f"<h1> Your Email has been changed to {email} from {current_user.email}! (This is a simulation) <h1>"
+
+
+@auth.route("/is_xml", methods=['POST'])
+def tools_is_xml():
+    try:
+        # read data from POST
+        xml_raw = request.files['xml'].read()
+
+        # create the XML parser
+        parser = etree.XMLParser()
+
+        # parse the XML data
+        root = etree.fromstring(xml_raw, parser)
+
+        # return a string representation
+        xml = etree.tostring(root, pretty_print=True, encoding='unicode')
+        return jsonify({'status': 'yes', 'data': xml})
+    except Exception as e:
+        return jsonify({'status': 'no', 'message': str(e)})
