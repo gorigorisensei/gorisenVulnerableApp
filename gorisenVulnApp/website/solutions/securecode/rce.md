@@ -1,7 +1,6 @@
 Vulnerable Code:
 
-```
-Vulnerable code:
+``` python 
 @auth.route("/ping", methods=['GET', 'POST'])
 def page():
     if request.method == 'POST':
@@ -23,7 +22,7 @@ Secure code:
 - proper error handling will ensure that the application is not showing the backend information.
 
 
-```
+```python
 @auth.route("/ping", methods=['GET', 'POST'])
 def page():
     if request.method == 'POST':

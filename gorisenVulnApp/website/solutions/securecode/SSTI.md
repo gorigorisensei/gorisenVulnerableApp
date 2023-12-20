@@ -4,7 +4,7 @@
 -- this also leads to a RCE. Check out the ctf_solutions.txt
 
 in auth.py:
-```
+```python
 @auth.route('/find_secret', methods=['GET', 'POST'])
 def get_asset():
 
@@ -32,7 +32,7 @@ def get_asset():
 ### Secure Code:
 
 
-```
+```python
 
     except:
         return render_template_string("404 page not found: the {{ asset_name }} resource does not exist!", user=current_user, asset_name=asset_name), 404

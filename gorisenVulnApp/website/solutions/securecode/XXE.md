@@ -2,7 +2,7 @@ In the auth.py file, take a look at the is_xml endpoint being configured.
 
 Vulnerable code:
 
-```
+```python
 @tools.route("/is_xml", methods=['POST'])
 def tools_is_xml():
     try:
@@ -26,6 +26,6 @@ def tools_is_xml():
 Simply add the "resolve_entities=False" argument when creating the etree.XMLParser.
 
 
-```
+```python
 parser = etree.XMLParser(resolve_entities=False)
 ```

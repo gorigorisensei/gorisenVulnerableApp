@@ -1,7 +1,7 @@
 ## pickPartner endpoint is vulnerable to reflected XSS.
 
 Auth.py shows the server is getting the buddy parameter from both the POST request and from the URL parameter and pass the "buddy" variable to the pickPartner.html template.
-----
+```python
 @auth.route("/pickPartner", methods=['GET', 'POST'])
 def partner():
     if request.method == 'POST':
@@ -11,13 +11,15 @@ def partner():
         buddy = request.args.get('buddy')
         return render_template("pickPartner.html",user=current_user, buddy=buddy)
 
-----
+```
+
+
 
 
 PickPartner.html:
 
 - the template is using "| safe" method which disables the HTML encoding.
------
+```html
 
 <form method="POST">
   <div class="form-group">
@@ -48,7 +50,7 @@ PickPartner.html:
 
 <p>buddy's image changes if you supply another name. </p>
 
-------
+```
 
 
 SECURE CODE:

@@ -1,5 +1,8 @@
 ### vuln code
 ### views.py
+
+
+```python
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
@@ -30,10 +33,10 @@ def home():
 
 
     return render_template("home.html", user=current_user, rows=rows)
-
+```
 
 ### home.html
-
+```html
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
 %}
 <h1 align="center">Notes</h1>
@@ -53,12 +56,12 @@ def home():
 </form>
 {% endblock %}
 
-
+```
 
 ### Secure code:
 #### views.py
 
-
+```python
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
@@ -81,10 +84,10 @@ def home():
 
     return render_template("home.html", user=current_user, rows=results)
 
-
+```
 
 #### home.html
-
+```html
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
 %}
 <h1 align="center">Notes</h1>
@@ -108,3 +111,5 @@ def home():
   </div>
 </form>
 {% endblock %}
+
+```

@@ -1,4 +1,5 @@
 ## vuln code:
+```python
 def login():
     if request.method =='POST':
         email = request.form.get('email')
@@ -19,11 +20,12 @@ def login():
 
     return render_template("login.html", user=current_user)
 
-
+```
 
 ## secure code
 ## use a parameterized statement for sql alchemy
 
+```python
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method =='POST':
@@ -48,3 +50,5 @@ def login():
 
 
     return render_template("login.html", user=current_user)
+
+```

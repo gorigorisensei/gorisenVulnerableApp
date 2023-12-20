@@ -1,4 +1,5 @@
 ## vuln code:
+```python
 import os
 from flask import send_file
 
@@ -11,11 +12,11 @@ def get_asset():
     if not asset_name:
         return render_template("find_secret.html",user=current_user)
     return send_file(os.path.join(asset_folder, asset_name))
-
+```
 
 ## secure code:
 
-
+```python
 from werkzeug.utils import secure_filename
 
 auth = Blueprint('auth', __name__)
@@ -28,3 +29,5 @@ def get_asset():
         return render_template("find_secret.html",user=current_user)
     asset_name = secure_filename(asset_name)
     return send_file(os.path.join(asset_folder, asset_name))
+
+```

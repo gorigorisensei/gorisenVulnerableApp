@@ -2,7 +2,7 @@ Vuln Code:
 
 
 In auth.py, notice change_email function doesn't pass any CSRF token.
-```
+```python
 @auth.route("/change_email", methods=['POST'])
 @login_required
 def change_email():
@@ -14,7 +14,7 @@ def change_email():
 ```
 
 In home.html, there's no csrf being submitted.
-```
+```html
 <div class="card">
   <div class="card-header">
     Update your Email Address
@@ -36,7 +36,7 @@ SECURE CODE:
 
 Note that anti_csrf_token was already assigned via home function:
 
-```
+```python
 session['anti_csrf_token'] = str(uuid.uuid4())
 ....
 
@@ -45,7 +45,7 @@ return render_template("home.html", user=current_user, rows=rows, anti_csrf_toke
 
 Adjust the change_email function and pass the anti_csrf_token with additional checks on token's validity.
 
-```
+```python
 def change_email():
     current_email = current_user.email
     email = request.form.get('email')
@@ -65,7 +65,7 @@ def change_email():
 ```
 
 Finally, in home.html, supply a hidden anti_csrf_token input field:
-```
+```html
 <div class="card">
   <div class="card-header">
     Update your Email Address
