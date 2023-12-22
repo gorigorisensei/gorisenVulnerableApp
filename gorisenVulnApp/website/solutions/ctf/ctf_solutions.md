@@ -102,3 +102,10 @@ Windows:
 ```
 
 Upload the xml file via a POSTMAN by choosing the "form-data" option and specify the Key as "xml" and select the payload file.
+
+
+### IDOR 
+
+A logged-in user is able to enumerate other user's email addresses at /users?id=ID_NUMBER.
+Essentially, any logged_in user can enumerate all the users' email addresses by going through the id values.
+

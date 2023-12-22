@@ -54,6 +54,7 @@ Below is the basic training flow:
 | CSRF | 
 | Insecure Session Management |
 | XXE | 
+| IDOR |
 
  
 <br>

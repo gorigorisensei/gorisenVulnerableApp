@@ -1,3 +1,4 @@
+import json
 import subprocess
 import uuid
 
@@ -88,8 +89,6 @@ def login():
 
         query = text("SELECT * FROM user WHERE email = '%s' AND password = '%s' "% (email, password))
         results = db.session.execute(query).all()
-
-
 
         if results:
 
@@ -183,3 +182,28 @@ def tools_is_xml():
         return jsonify({'status': 'yes', 'data': xml})
     except Exception as e:
         return jsonify({'status': 'no', 'message': str(e)})
+
+
+
+@auth.route('/users', methods=['GET'])
+@login_required
+def get_user_data():
+    user_id = request.args.get('id')
+    user_exists = False
+    query = text("SELECT * FROM user WHERE id = :user_id")
+    results = db.session.execute(query, {"user_id": user_id}).all()
+    user_dict = {'id': "null", 'email': "null"}
+    if results:
+        user_exists = True
+        id_value = results[0][0]
+        email_value = results[0][1]
+
+        user_dict['id'] = id_value
+        user_dict['email'] = email_value
+
+    return jsonify(user_dict)
+
+
+
+
+

@@ -33,7 +33,8 @@
     <form action="/change_email" method="post">
   <!-- ... -->
     <h2>Enter a new email address below:</h2>
-      <p>Your Current Email Address is {{ user.email }}</p>
+      <p>Your Current Email Address can be checked <a href="/users?id={{ user.id }}"><u>here</u></a></p>
+
     <input class="form-control" id="email" name="email" placeholder="email"/>
     <input type="hidden" name="anti_csrf_token" value="{{anti_csrf_token}}">
     <br>
@@ -41,6 +42,7 @@
 </form>
   </div>
 </div>
+
 
 
 
