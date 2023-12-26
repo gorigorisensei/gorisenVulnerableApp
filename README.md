@@ -55,6 +55,7 @@ Below is the basic training flow:
 | Insecure Session Management |
 | XXE | 
 | IDOR |
+| Security Misconfiguration and RCE| 
 
  
 <br>

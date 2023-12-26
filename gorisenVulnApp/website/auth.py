@@ -205,5 +205,8 @@ def get_user_data():
 
 
 
-
+@auth.route('/oauth')
+def login_oauth():
+    # TODO implement this later...
+    raise Exception('Not Implemented')
 

