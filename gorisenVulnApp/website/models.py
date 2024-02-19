@@ -10,8 +10,6 @@ class Note(db.Model):
     # getting the userid value from the user table. one-to-many relationship
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-
-
 class User(db.Model, UserMixin):
     # define what we are going to store in the db
     id = db.Column(db.Integer, primary_key=True)

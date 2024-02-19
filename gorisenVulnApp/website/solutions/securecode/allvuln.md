@@ -25,6 +25,7 @@ SESSION_COOKIE_SECURE = True
 
 ## SQLi
 ## vuln code:
+- In auth.py, email and password data is being handled unsecurely when querying. 
 ```python
 def login():
     if request.method =='POST':
@@ -80,6 +81,8 @@ def login():
 ```
 ## LFI
 
+In auth.py, argument, "file" is being handled unsafely without any sanitization. 
+
 ```python
 import os
 from flask import send_file
@@ -97,6 +100,7 @@ def get_asset():
 
 ## secure code:
 
+Use werkzeug's secure_filename module to return the secure version of the file name, which removes any dangerous LFI attack vectors such as "/" or "\", and replaced them with underscores. 
 ```python
 from werkzeug.utils import secure_filename
 
