@@ -68,7 +68,11 @@ Below is the basic training flow:
 
 ###  Preview of the web application
 
-![image](https://github.com/gorigorisensei/gorisenVulnerableApp/assets/46886933/cd4c8ee3-8f0d-4673-800c-82f90062b57c)
+ 
+
+https://github.com/gorigorisensei/gorisenVulnerableApp/assets/46886933/264e92ca-8190-4464-9f53-b0ca9009c1a2
+
+
 
 ### Author
 
